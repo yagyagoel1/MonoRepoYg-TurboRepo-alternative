@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsx scripts/runner.ts build",
-    "dev": "tsx scripts/runner.ts dev",
-    "start": "tsx scripts/runner.ts start"
+    "build": "monorunyg build",
+    "dev": "monorunyg dev",
+    "start": "monorunyg start"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "chalk": "catalog:",
     "execa": "^8.0.1",
     "fast-glob": "^3.3.2",
+    "monorunyg": "^1.0.0",
     "tsx": "^4.7.1",
     "typescript": "~5.8.3"
   }

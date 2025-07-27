@@ -16,6 +16,8 @@ COPY package.json ./
 
 # Create workspace directories and copy package.json files
 COPY apps/frontend/package.json ./apps/frontend/
+COPY  packages/test/package.json ./packages/test/
+COPY apps/nexttest/package.json ./apps/nexttest/
 COPY packages/ui/package.json ./packages/ui/
 
 # Set pnpm store location

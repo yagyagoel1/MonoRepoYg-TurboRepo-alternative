@@ -83,17 +83,24 @@ async function run(task: "build" | "dev" | "start") {
   }
 
   if (task === "start") {
-    // For start command, only run apps
-    for (const p of apps) {
-      const pkgJson = JSON.parse(
-        fs.readFileSync(path.join(p.dir, "package.json"), "utf8")
-      );
-      if (!pkgJson.scripts?.[task]) continue;
-      console.log(chalk.blue(`\n▶ ${task} › ${p.name}`));
-      await execa("pnpm", ["run", task], {
-        cwd: p.dir,
-        stdio: "inherit",
-      });
+    // For start command, run all apps in parallel
+    if (apps.length > 0) {
+      console.log(chalk.yellow("\n🚀 Starting all apps in parallel..."));
+      const appPromises = apps.map(async (p) => {
+        const pkgJson = JSON.parse(
+          fs.readFileSync(path.join(p.dir, "package.json"), "utf8")
+        );
+        if (!pkgJson.scripts?.[task]) return;
+        
+        console.log(chalk.blue(`\n▶ ${task} › ${p.name}`));
+        return execa("pnpm", ["run", task], {
+          cwd: p.dir,
+          stdio: "inherit",
+        });
+      }).filter(Boolean);
+      
+      // Wait for all apps to start (they will run continuously)
+      await Promise.all(appPromises);
     }
   } else if (task === "build") {
     // For build, run packages in parallel first, then apps in parallel
