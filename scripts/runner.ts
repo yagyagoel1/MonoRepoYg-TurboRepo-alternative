@@ -54,28 +54,44 @@ function topoSort(all: Pkg[]): Pkg[] {
 }
 
 // 3. Run a task on packages, then apps
-async function run(task: "build" | "dev") {
+async function run(task: "build" | "dev" | "start") {
   const all = topoSort(loadPkgs());
   // packages first: detect location by path prefix
   const pkgs = all.filter(p => p.dir.includes("/packages/"));
   const apps = all.filter(p => p.dir.includes("/apps/"));
 
-  for (const p of [...pkgs, ...apps]) {
-    const pkgJson = JSON.parse(
-      fs.readFileSync(path.join(p.dir, "package.json"), "utf8")
-    );
-    if (!pkgJson.scripts?.[task]) continue;
-    console.log(chalk.blue(`\n▶ ${task} › ${p.name}`));
-    await execa("pnpm", ["run", task], {
-      cwd: p.dir,
-      stdio: "inherit",
-    });
+  if (task === "start") {
+    // For start command, only run apps
+    for (const p of apps) {
+      const pkgJson = JSON.parse(
+        fs.readFileSync(path.join(p.dir, "package.json"), "utf8")
+      );
+      if (!pkgJson.scripts?.[task]) continue;
+      console.log(chalk.blue(`\n▶ ${task} › ${p.name}`));
+      await execa("pnpm", ["run", task], {
+        cwd: p.dir,
+        stdio: "inherit",
+      });
+    }
+  } else {
+    // For build/dev, run packages first, then apps sequentially
+    for (const p of [...pkgs, ...apps]) {
+      const pkgJson = JSON.parse(
+        fs.readFileSync(path.join(p.dir, "package.json"), "utf8")
+      );
+      if (!pkgJson.scripts?.[task]) continue;
+      console.log(chalk.blue(`\n▶ ${task} › ${p.name}`));
+      await execa("pnpm", ["run", task], {
+        cwd: p.dir,
+        stdio: "inherit",
+      });
+    }
   }
 }
 
 const cmd = process.argv[2];
-if (!cmd || !["build", "dev"].includes(cmd)) {
-  console.error("usage: runner build|dev");
+if (!cmd || !["build", "dev", "start"].includes(cmd)) {
+  console.error("usage: runner build|dev|start");
   process.exit(1);
 }
 run(cmd as any);
