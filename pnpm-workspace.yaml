@@ -1,0 +1,7 @@
+packages:
+  - 'packages/*'
+  - 'apps/*' 
+
+
+catalog:
+  chalk: ^4.1.2
