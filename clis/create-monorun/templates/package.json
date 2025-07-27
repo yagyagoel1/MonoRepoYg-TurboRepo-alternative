@@ -4,21 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "echo 'Add monorun to run build across packages'",
-    "dev": "echo 'Add monorun to run dev across packages'",
-    "start": "echo 'Add monorun to run start across packages'"
+    "build": "monorunyg build",
+    "dev": "monorunyg dev",
+    "start": "monorunyg start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.11.1",
   "devDependencies": {
-    "@types/node": "^24.1.0",
-    "typescript": "~5.8.3"
+    "@types/node": "^24.1.0"
   },
   "dependencies": {
-    "chalk": "^5.3.0",
+    "chalk": "catalog:",
     "execa": "^8.0.1",
-    "fast-glob": "^3.3.2"
+    "fast-glob": "^3.3.2",
+    "monorunyg": "^1.0.0",
+    "tsx": "^4.7.1",
+    "typescript": "~5.8.3"
   }
 }

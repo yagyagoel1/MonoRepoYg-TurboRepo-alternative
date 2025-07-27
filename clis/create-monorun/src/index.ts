@@ -11,7 +11,7 @@ interface ProjectOptions {
 }
 
 export async function createMonorepo(): Promise<void> {
-  console.log(chalk.blue('🚀 Welcome to Monorun Project Creator!'));
+  console.log(chalk.blue('🚀 Welcome to monorunyg Project Creator!'));
   console.log();
 
   // Check for command line arguments
@@ -33,7 +33,7 @@ export async function createMonorepo(): Promise<void> {
         type: 'text',
         name: 'name',
         message: 'What is your project named?',
-        initial: 'my-monorun-project',
+        initial: 'my-monorunyg-project',
         validate: (value: string) => value.length > 0 ? true : 'Project name is required'
       },
       {
@@ -97,7 +97,7 @@ export async function createMonorepo(): Promise<void> {
     console.log(`  ${options.packageManager} run build`);
     console.log(`  ${options.packageManager} run dev`);
     console.log();
-    console.log(chalk.yellow('💡 Use "monorun run <command>" to run commands across all packages'));
+    console.log(chalk.yellow('💡 Use "monorunyg run <command>" to run commands across all packages'));
     
   } catch (error) {
     console.error(chalk.red('❌ Error creating project:'), error);
@@ -129,6 +129,7 @@ async function createProjectStructure(projectPath: string, options: ProjectOptio
     { src: 'pnpm-workspace.yaml', dest: 'pnpm-workspace.yaml' },
     { src: 'tsconfig.json', dest: 'tsconfig.json' },
     { src: 'Dockerfile', dest: 'Dockerfile' },
+    { src: '.gitignore', dest: '.gitignore' },
     
     // Frontend app
     { src: 'apps/frontend/package.json', dest: 'apps/frontend/package.json' },
@@ -169,11 +170,22 @@ async function createProjectStructure(projectPath: string, options: ProjectOptio
     
     if (await fs.pathExists(srcPath)) {
       await fs.copy(srcPath, destPath);
+      console.log(chalk.dim(`✓ Copied ${template.src}`));
+    } else {
+      console.log(chalk.yellow(`⚠ Template file not found: ${template.src}`));
     }
   }
 
   // Replace project name in package.json files
   await replaceProjectName(projectPath, options.name);
+
+  // Ensure .gitignore is created (sometimes it gets filtered out)
+  const gitignoreSrc = path.join(templateDir, '.gitignore');
+  const gitignoreDest = path.join(projectPath, '.gitignore');
+  if (await fs.pathExists(gitignoreSrc)) {
+    await fs.copy(gitignoreSrc, gitignoreDest);
+    console.log(chalk.dim('✓ Ensured .gitignore is copied'));
+  }
 }
 
 async function replaceProjectName(projectPath: string, projectName: string): Promise<void> {
@@ -195,6 +207,6 @@ async function installDependencies(projectPath: string, packageManager: string):
     stdio: 'inherit'
   });
 
-  console.log(chalk.yellow('� Note: You can add monorun later by running:'));
-  console.log(chalk.yellow(`  ${packageManager} add monorun --save-dev`));
+  console.log(chalk.yellow('� Note: You can add monorunyg later by running:'));
+  console.log(chalk.yellow(`  ${packageManager} add monorunyg --save-dev`));
 }
