@@ -1,0 +1,13 @@
+{
+  "name": "@repo/test",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "packageManager": "pnpm@10.11.1",
+  "dependencies": {
+    "dotenv": "^17.2.1"
+  }
+}
