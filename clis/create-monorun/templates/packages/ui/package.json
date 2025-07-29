@@ -2,8 +2,5 @@
   "name": "@repo/ui",
   "version": "1.0.0",
   "main": "src/index.ts",
-  "types": "src/index.ts",
-  "scripts": {
-    "build": "echo Building ui"
-  }
+  "types": "src/index.ts"
 }

@@ -1,6 +1,6 @@
 {
   "name": "create-monorun",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Create a new monorepo project with monorun",
   "main": "dist/index.js",
   "bin": {

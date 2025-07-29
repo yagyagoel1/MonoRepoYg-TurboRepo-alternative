@@ -1,17 +1,9 @@
-export function Button({ children, onClick }: { children: React.ReactNode; onClick?: () => void }) {
-  return (
-    <button 
-      onClick={onClick}
-      style={{
-        padding: '10px 20px',
-        backgroundColor: '#007acc',
-        color: 'white',
-        border: 'none',
-        borderRadius: '4px',
-        cursor: 'pointer'
-      }}
-    >
-      {children}
-    </button>
-  );
+export const greeting = "Hello from @repo/ui!";
+
+export function add(a: number, b: number): number {
+  return a + b;
+}
+
+export function multiply(a: number, b: number): number {
+  return a * b;
 }

@@ -146,15 +146,7 @@ async function createProjectStructure(projectPath: string, options: ProjectOptio
     { src: 'apps/frontend/src/vite-env.d.ts', dest: 'apps/frontend/src/vite-env.d.ts' },
     { src: 'apps/frontend/public/vite.svg', dest: 'apps/frontend/public/vite.svg' },
     
-    // Next.js app
-    { src: 'apps/nexttest/package.json', dest: 'apps/nexttest/package.json' },
-    { src: 'apps/nexttest/next.config.ts', dest: 'apps/nexttest/next.config.ts' },
-    { src: 'apps/nexttest/tsconfig.json', dest: 'apps/nexttest/tsconfig.json' },
-    { src: 'apps/nexttest/postcss.config.mjs', dest: 'apps/nexttest/postcss.config.mjs' },
-    { src: 'apps/nexttest/app/layout.tsx', dest: 'apps/nexttest/app/layout.tsx' },
-    { src: 'apps/nexttest/app/page.tsx', dest: 'apps/nexttest/app/page.tsx' },
-    { src: 'apps/nexttest/app/globals.css', dest: 'apps/nexttest/app/globals.css' },
-    
+
     // Packages
     { src: 'packages/ui/package.json', dest: 'packages/ui/package.json' },
     { src: 'packages/ui/tsconfig.json', dest: 'packages/ui/tsconfig.json' },

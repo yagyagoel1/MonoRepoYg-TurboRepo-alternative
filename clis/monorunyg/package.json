@@ -1,6 +1,6 @@
 {
   "name": "monorunyg",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A lightweight alternative to Turborepo for monorepo build orchestration",
   "main": "dist/index.js",
   "bin": {
